@@ -109,7 +109,7 @@ export const Hero = () => {
   const onDesktopSubmit = createSubmitHandler(desktopForm, () => setDesktopResetToggle(prev => prev + 1));
   const onMobileSubmit = createSubmitHandler(mobileForm, () => setMobileResetToggle(prev => prev + 1));
 
-  const inputBase = "w-full border rounded-lg py-1.5 pl-9 pr-3 text-[13px] text-zinc-800 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-brand-red/25 focus:border-brand-red transition-all";
+  const inputBase = "w-full border rounded-lg py-1 pl-8 pr-3 text-xs text-zinc-800 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-brand-red/25 focus:border-brand-red transition-all";
 
   const renderForm = (
     formInstance: typeof desktopForm,
@@ -127,19 +127,19 @@ export const Hero = () => {
     return (
       <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.25)] border border-white/25">
         {/* Branded Red Header */}
-        <div className="bg-gradient-to-r from-brand-red/85 via-red-600/85 to-red-700/85 backdrop-blur-md px-4 py-2.5 text-white flex items-center justify-between">
-          <h3 className="text-[12px] font-extrabold tracking-tight uppercase flex items-center gap-1.5">
-            <GraduationCap className="h-4.5 w-4.5 shrink-0 text-white" />
+        <div className="bg-gradient-to-r from-brand-red/85 via-red-600/85 to-red-700/85 backdrop-blur-md px-3 py-1.5 text-white flex items-center justify-between">
+          <h3 className="text-[11px] font-extrabold tracking-tight uppercase flex items-center gap-1.5">
+            <GraduationCap className="h-3.5 w-3.5 shrink-0 text-white" />
             Book Free Demo
           </h3>
-          <span className="text-[9px] bg-white/25 px-2 py-0.5 rounded font-black tracking-wide uppercase">
+          <span className="text-[8px] bg-white/25 px-1.5 py-0.5 rounded font-black tracking-wide uppercase">
             Gurgaon
           </span>
         </div>
 
         {/* Form Body */}
-        <div className="bg-white/75 backdrop-blur-md p-3.5">
-          <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-2.5">
+        <div className="bg-white/75 backdrop-blur-md p-2.5">
+          <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-2">
             {/* Full Name */}
             <div className="flex flex-col gap-1">
               <div className="relative">
@@ -267,17 +267,17 @@ export const Hero = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-brand-red to-red-600 hover:from-red-600 hover:to-red-700 text-white py-2.5 rounded-lg font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all duration-300 shadow-lg shadow-red-500/25 hover:shadow-red-500/40 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed mt-1"
+              className="w-full bg-gradient-to-r from-brand-red to-red-600 hover:from-red-600 hover:to-red-700 text-white py-1.5 rounded-lg font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-300 shadow-lg shadow-red-500/25 hover:shadow-red-500/40 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed mt-0.5"
             >
               {isSubmitting ? (
-                <span className="flex items-center gap-2">
-                  <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>
+                <span className="flex items-center gap-1.5">
+                  <svg className="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>
                   Reserving...
                 </span>
               ) : (
                 <>
                   Reserve My Seat
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-3.5 w-3.5" />
                 </>
               )}
             </button>
@@ -312,14 +312,14 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15, ease: [0.4, 0, 0.2, 1] }}
-          className="hidden lg:block absolute top-1/2 -translate-y-1/2 right-8 lg:right-16 xl:right-24 w-[280px] lg:w-[300px] xl:w-[320px] z-20"
+          className="hidden lg:block absolute top-1/2 -translate-y-1/2 right-8 lg:right-16 xl:right-24 w-[230px] lg:w-[245px] xl:w-[260px] z-20"
         >
           {renderForm(desktopForm, onDesktopSubmit, desktopRecaptchaRef, "hero-desktop-captcha")}
         </motion.div>
       </div>
 
       {/* Mobile Form Display (Stacked Below Banner) */}
-      <div className="block lg:hidden px-4 -mt-8 max-w-md mx-auto relative z-10">
+      <div className="block lg:hidden px-4 -mt-8 max-w-[280px] mx-auto relative z-10">
         {renderForm(mobileForm, onMobileSubmit, mobileRecaptchaRef, "hero-mobile-captcha")}
       </div>
 
