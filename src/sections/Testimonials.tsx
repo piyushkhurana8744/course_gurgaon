@@ -24,7 +24,7 @@ export const Testimonials = ({ onOpenVideo }: TestimonialsProps) => {
   const activeTestimonial = TESTIMONIALS_DATA[currentIndex];
 
   return (
-    <section id="reviews" className="py-24 bg-white border-b border-zinc-200 relative">
+    <section id="testimonials" className="py-24 bg-white border-b border-zinc-200 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}

@@ -64,7 +64,6 @@ export function MainPageContent({ showPricing }: MainPageContentProps) {
     if (path.endsWith("/highlights")) targetId = "highlights";
     else if (path.endsWith("/curriculum")) targetId = "curriculum";
     else if (path.endsWith("/pricing") || path.endsWith("/courses")) targetId = "pricing";
-    else if (path.endsWith("/placements") || path.endsWith("/testimonials")) targetId = "placements";
     else if (path.endsWith("/faq")) targetId = "faq";
 
     if (targetId) {
@@ -90,7 +89,6 @@ export function MainPageContent({ showPricing }: MainPageContentProps) {
   // Dialog visibility states
   const [isDemoOpen, setIsDemoOpen] = React.useState(false);
   const [isBrochureOpen, setIsBrochureOpen] = React.useState(false);
-  const [videoUrl, setVideoUrl] = React.useState<string | null>(null);
   const [selectedCourse, setSelectedCourse] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
@@ -638,27 +636,6 @@ export function MainPageContent({ showPricing }: MainPageContentProps) {
             {isSubmitting ? "Generating PDF..." : "Download Free Brochure Now"}
           </Button>
         </form>
-      </Dialog>
-
-      {/* C. Video Testimonial Player Modal */}
-      <Dialog
-        isOpen={videoUrl !== null}
-        onClose={() => setVideoUrl(null)}
-        title="Student Success Verification"
-      >
-        <div className="aspect-video w-full rounded-lg overflow-hidden border border-zinc-200 bg-black">
-          {videoUrl && (
-            <video
-              src={videoUrl}
-              controls
-              autoPlay
-              className="w-full h-full object-contain"
-            />
-          )}
-        </div>
-        <p className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider text-center mt-4">
-          Unedited review. Hosted for admissions verification purposes.
-        </p>
       </Dialog>
     </>
   );

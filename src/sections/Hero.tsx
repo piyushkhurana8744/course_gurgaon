@@ -81,12 +81,11 @@ export const Hero = () => {
   };
 
   React.useEffect(() => {
-    if (isHovered) return;
     const interval = setInterval(() => {
       nextSlide();
-    }, 6000);
+    }, 2000);
     return () => clearInterval(interval);
-  }, [isHovered, nextSlide]);
+  }, [nextSlide]);
 
   const desktopForm = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
@@ -163,7 +162,7 @@ export const Hero = () => {
   const onDesktopSubmit = createSubmitHandler(desktopForm, () => setDesktopResetToggle(prev => prev + 1));
   const onMobileSubmit = createSubmitHandler(mobileForm, () => setMobileResetToggle(prev => prev + 1));
 
-  const inputBase = "w-full border border-zinc-200 rounded-xl py-2 pl-9 pr-3 text-xs sm:text-sm text-zinc-800 placeholder-zinc-400 bg-zinc-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-red/15 focus:border-brand-red transition-all duration-200";
+  const inputBase = "w-full border border-zinc-200 rounded-lg py-1.5 pl-8 pr-3 text-xs sm:text-sm text-zinc-800 placeholder-zinc-400 bg-zinc-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-red/15 focus:border-brand-red transition-all duration-200";
 
   const renderForm = (
     formInstance: typeof desktopForm,
@@ -179,30 +178,30 @@ export const Hero = () => {
     } = formInstance;
 
     return (
-      <div className="rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-white/20 bg-white/95 backdrop-blur-md">
+      <div className="rounded-xl overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.25)] border border-white/20 bg-white/95 backdrop-blur-md">
         {/* Modern Branded Red Header */}
-        <div className="bg-gradient-to-r from-brand-red to-red-600 px-4 py-3.5 text-white">
-          <div className="flex items-center justify-between mb-1.5">
-            <span className="text-[9px] bg-white/20 backdrop-blur-sm text-white px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">
+        <div className="bg-gradient-to-r from-brand-red to-red-600 px-3.5 py-2 text-white">
+          <div className="flex items-center justify-between mb-0.5">
+            <span className="text-[8px] bg-white/20 backdrop-blur-sm text-white px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider">
               Free Demo Class
             </span>
-            <span className="text-[9px] font-black text-red-100 uppercase tracking-widest">
+            <span className="text-[8px] font-black text-red-100 uppercase tracking-widest">
               Gurgaon
             </span>
           </div>
-          <h3 className="text-xs sm:text-sm font-extrabold tracking-tight uppercase flex items-center gap-1.5">
-            <GraduationCap className="h-4 w-4 shrink-0 text-white" />
+          <h3 className="text-xs font-extrabold tracking-tight uppercase flex items-center gap-1">
+            <GraduationCap className="h-3.5 w-3.5 shrink-0 text-white" />
             Book Free Trial Class
           </h3>
         </div>
 
         {/* Form Body */}
-        <div className="p-4 space-y-3">
-          <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-3">
+        <div className="p-3 space-y-2">
+          <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-2">
             {/* Full Name */}
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-0.5">
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-zinc-400" />
+                <User className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-zinc-400" />
                 <input
                   type="text"
                   placeholder="Full Name"
@@ -215,13 +214,13 @@ export const Hero = () => {
                   className={`${inputBase} ${errors.name ? "border-red-400 bg-red-50/50" : "border-zinc-200 bg-zinc-50/80"}`}
                 />
               </div>
-              {errors.name && <p className="text-[10px] text-red-500 font-semibold pl-1 leading-tight">{errors.name.message}</p>}
+              {errors.name && <p className="text-[9px] text-red-500 font-semibold pl-1 leading-tight">{errors.name.message}</p>}
             </div>
 
             {/* Email Address */}
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-0.5">
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-zinc-400" />
+                <Mail className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-zinc-400" />
                 <input
                   type="email"
                   placeholder="Email Address"
@@ -234,13 +233,13 @@ export const Hero = () => {
                   className={`${inputBase} ${errors.email ? "border-red-400 bg-red-50/50" : "border-zinc-200 bg-zinc-50/80"}`}
                 />
               </div>
-              {errors.email && <p className="text-[10px] text-red-500 font-semibold pl-1 leading-tight">{errors.email.message}</p>}
+              {errors.email && <p className="text-[9px] text-red-500 font-semibold pl-1 leading-tight">{errors.email.message}</p>}
             </div>
 
             {/* Contact Number */}
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-0.5">
               <div className="relative">
-                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-zinc-400" />
+                <Phone className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-zinc-400" />
                 <input
                   type="tel"
                   placeholder="Phone Number"
@@ -254,13 +253,13 @@ export const Hero = () => {
                   className={`${inputBase} ${errors.phone ? "border-red-400 bg-red-50/50" : "border-zinc-200 bg-zinc-50/80"}`}
                 />
               </div>
-              {errors.phone && <p className="text-[10px] text-red-500 font-semibold pl-1 leading-tight">{errors.phone.message}</p>}
+              {errors.phone && <p className="text-[9px] text-red-500 font-semibold pl-1 leading-tight">{errors.phone.message}</p>}
             </div>
 
             {/* Choose Center */}
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-0.5">
               <div className="relative">
-                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-zinc-400 pointer-events-none" />
+                <MapPin className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-zinc-400 pointer-events-none" />
                 <select
                   {...register("center")}
                   disabled={isSubmitting}
@@ -271,27 +270,26 @@ export const Hero = () => {
                     <option key={c} value={c}>{c}</option>
                   ))}
                 </select>
-                {/* Arrow indicator for select dropdown */}
-                <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400">
-                  <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                <div className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400">
+                  <svg className="fill-current h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                 </div>
               </div>
-              {errors.center && <p className="text-[10px] text-red-500 font-semibold pl-1 leading-tight">{errors.center.message}</p>}
+              {errors.center && <p className="text-[9px] text-red-500 font-semibold pl-1 leading-tight">{errors.center.message}</p>}
             </div>
 
             {/* Agreement Checkbox */}
-            <div className="flex flex-col gap-1 py-0.5 text-left">
-              <label className="flex items-start gap-2 cursor-pointer select-none">
+            <div className="flex flex-col gap-0.5 py-0.5 text-left">
+              <label className="flex items-start gap-1.5 cursor-pointer select-none">
                 <input
                   type="checkbox"
                   disabled={isSubmitting}
                   {...register("agree")}
-                  className={`mt-0.5 rounded border border-zinc-300 text-brand-red focus:ring-brand-red/25 focus:border-brand-red h-3.5 w-3.5 ${
+                  className={`mt-0.5 rounded border border-zinc-300 text-brand-red focus:ring-brand-red/25 focus:border-brand-red h-3 w-3 ${
                     errors.agree ? "border-red-500" : "border-zinc-300"
                   }`}
                 />
-                <span className="text-[10px] text-zinc-550 font-semibold leading-tight">
-                  I agree to the DIDM{" "}
+                <span className="text-[9px] text-zinc-500 font-semibold leading-tight">
+                  I agree to DIDM{" "}
                   <a
                     href="/terms-and-conditions"
                     target="_blank"
@@ -311,11 +309,11 @@ export const Hero = () => {
                   </a>
                 </span>
               </label>
-              {errors.agree && <p className="text-[10px] text-red-500 font-semibold pl-1 leading-tight">{errors.agree.message}</p>}
+              {errors.agree && <p className="text-[9px] text-red-500 font-semibold pl-1 leading-tight">{errors.agree.message}</p>}
             </div>
 
             {/* Spam Protection - Custom math CAPTCHA */}
-            <div className="bg-zinc-50 border border-zinc-200/60 rounded-xl p-2">
+            <div className="bg-zinc-50 border border-zinc-200/50 rounded-lg p-1.5">
               <CustomCaptcha
                 ref={recaptchaRef}
                 id={captchaId}
@@ -332,17 +330,17 @@ export const Hero = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-brand-red to-red-600 hover:from-brand-red-dark hover:to-red-750 text-white py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-300 shadow-md shadow-red-500/20 hover:shadow-red-500/35 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+              className="w-full bg-gradient-to-r from-brand-red to-red-600 hover:from-brand-red-dark hover:to-red-750 text-white py-2 rounded-lg font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-1 cursor-pointer transition-all duration-350 shadow shadow-red-500/15 hover:shadow-red-500/25 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed mt-1"
             >
               {isSubmitting ? (
-                <span className="flex items-center gap-1.5">
-                  <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>
+                <span className="flex items-center gap-1">
+                  <svg className="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>
                   Reserving...
                 </span>
               ) : (
                 <>
                   Reserve My Seat
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-3.5 w-3.5" />
                 </>
               )}
             </button>
@@ -362,19 +360,19 @@ export const Hero = () => {
 
       {/* Premium Animated Banner Slider Wrapper */}
       <div
-        className="w-full relative overflow-hidden aspect-[16/9] md:aspect-[16/7] lg:aspect-[21/9] min-h-[300px] sm:min-h-[380px] md:min-h-[450px] lg:min-h-[500px] xl:min-h-[580px] bg-zinc-950"
+        className="w-full relative overflow-hidden h-[300px] sm:h-[350px] md:h-[380px] lg:h-[400px] xl:h-[450px] bg-zinc-950"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         {/* Background Image Slide Transitions */}
         <div className="absolute inset-0 w-full h-full">
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             <motion.div
               key={currentSlide}
-              initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.7, ease: "easeInOut" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
               className="absolute inset-0 w-full h-full bg-cover bg-center"
               style={{ backgroundImage: `url(${SLIDES[currentSlide].image})` }}
             />
@@ -382,11 +380,11 @@ export const Hero = () => {
         </div>
 
         {/* Dark gradients for text legibility and form separation */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent z-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/45 to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent z-10 pointer-events-none" />
 
         {/* Dynamic Text Content Overlay (Animate on Slide Change) */}
-        <div className="absolute left-6 sm:left-10 md:left-14 lg:left-16 xl:left-24 top-1/2 -translate-y-1/2 max-w-[85%] lg:max-w-[55%] z-20 text-white flex flex-col gap-2.5 sm:gap-4 select-none">
+        <div className="absolute left-6 sm:left-10 md:left-14 lg:left-16 xl:left-24 top-1/2 -translate-y-1/2 max-w-[85%] lg:max-w-[55%] z-20 text-white flex flex-col gap-2 sm:gap-3 select-none">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -394,7 +392,7 @@ export const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              className="space-y-2.5 sm:space-y-4"
+              className="space-y-2 sm:space-y-3"
             >
               {/* Badges */}
               <div className="flex flex-wrap gap-1.5 sm:gap-2">
@@ -410,20 +408,20 @@ export const Hero = () => {
               </div>
 
               {/* Title & Subtitle */}
-              <div className="space-y-1 sm:space-y-2">
+              <div className="space-y-0.5 sm:space-y-1.5">
                 <span className="text-[10px] sm:text-xs md:text-sm text-red-400 font-bold uppercase tracking-widest block">
                   {SLIDES[currentSlide].subtitle}
                 </span>
-                <h2 className="text-xl sm:text-3xl md:text-4xl xl:text-5xl font-black tracking-tight leading-[1.1]">
+                <h2 className="text-xl sm:text-2xl md:text-3xl xl:text-4xl font-black tracking-tight leading-[1.1]">
                   {SLIDES[currentSlide].title}
                 </h2>
-                <p className="text-sm sm:text-base md:text-lg lg:text-xl text-zinc-100 font-bold sm:text-zinc-200">
+                <p className="text-xs sm:text-sm md:text-base lg:text-lg text-zinc-100 font-bold sm:text-zinc-200">
                   {SLIDES[currentSlide].highlight}
                 </p>
               </div>
 
               {/* Description */}
-              <p className="text-[11px] sm:text-xs md:text-sm text-zinc-300 font-medium max-w-xl leading-relaxed hidden sm:block">
+              <p className="text-[10px] sm:text-xs md:text-[13px] text-zinc-300 font-medium max-w-xl leading-relaxed hidden sm:line-clamp-2">
                 {SLIDES[currentSlide].description}
               </p>
             </motion.div>
@@ -465,7 +463,7 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15, ease: [0.4, 0, 0.2, 1] }}
-          className="hidden lg:block absolute top-1/2 -translate-y-1/2 right-8 lg:right-16 xl:right-24 w-[270px] lg:w-[290px] xl:w-[310px] z-20"
+          className="hidden lg:block absolute top-1/2 -translate-y-1/2 right-8 lg:right-16 xl:right-24 w-[250px] lg:w-[270px] xl:w-[290px] z-20"
         >
           {renderForm(desktopForm, onDesktopSubmit, desktopRecaptchaRef, "hero-desktop-captcha")}
         </motion.div>

@@ -20,14 +20,6 @@ const nextConfig: NextConfig = {
         destination: "/",
       },
       {
-        source: "/placements",
-        destination: "/",
-      },
-      {
-        source: "/testimonials",
-        destination: "/",
-      },
-      {
         source: "/faq",
         destination: "/",
       },
@@ -45,14 +37,6 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/gurgaon/courses",
-        destination: "/gurgaon",
-      },
-      {
-        source: "/gurgaon/placements",
-        destination: "/gurgaon",
-      },
-      {
-        source: "/gurgaon/testimonials",
         destination: "/gurgaon",
       },
       {

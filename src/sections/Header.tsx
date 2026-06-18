@@ -27,7 +27,6 @@ export const Header = ({ onOpenDemo, showPricing = true }: HeaderProps) => {
       label: showPricing ? "Pricing" : "Courses", 
       href: `${basePath}${showPricing ? "/pricing" : "/courses"}` 
     },
-    { label: "Placements", href: `${basePath}/placements` },
     { label: "FAQ", href: `${basePath}/faq` },
   ];
 
@@ -51,7 +50,6 @@ export const Header = ({ onOpenDemo, showPricing = true }: HeaderProps) => {
     if (href.endsWith("/highlights")) targetId = "highlights";
     else if (href.endsWith("/curriculum")) targetId = "curriculum";
     else if (href.endsWith("/pricing") || href.endsWith("/courses")) targetId = "pricing";
-    else if (href.endsWith("/placements")) targetId = "placements";
     else if (href.endsWith("/faq")) targetId = "faq";
 
     if (targetId) {

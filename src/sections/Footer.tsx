@@ -18,7 +18,6 @@ export const Footer = ({ showPricing = true }: FooterProps) => {
     { label: "Home", href: basePath || "/" },
     { label: "Highlights", href: `${basePath}/highlights` },
     { label: showPricing ? "Pricing Options" : "Courses", href: `${basePath}${showPricing ? "/pricing" : "/courses"}` },
-    { label: "Testimonials", href: `${basePath}/testimonials` },
     { label: "FAQ Portal", href: `${basePath}/faq` },
   ];
 
