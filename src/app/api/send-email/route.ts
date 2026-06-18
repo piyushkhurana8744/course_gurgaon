@@ -7,8 +7,8 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     
-    // Server-side validation using the shared schema
-    const validationResult = contactFormSchema.safeParse({
+    // Server-side validation using the shared schema (omitting 'agree' check since it is client-side only)
+    const validationResult = contactFormSchema.omit({ agree: true }).safeParse({
       name: body.name,
       email: body.email,
       phone: body.phone,
