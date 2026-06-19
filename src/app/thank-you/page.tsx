@@ -41,6 +41,18 @@ export default async function ThankYouPage({
           `,
         }}
       />
+      {/* Event snippet for Submit lead form conversion page (AW-18197943709) */}
+      <Script
+        id="google-ads-conversion-tracking-new"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            gtag('event', 'conversion', {
+              'send_to': 'AW-18197943709/9YX5CJmc2LYcEJ2ruuVD'
+            });
+          `,
+        }}
+      />
       {/* Background blobs for premium feel */}
       <div className="absolute top-1/4 -left-32 w-[400px] h-[400px] bg-brand-red/[0.04] rounded-full blur-[100px] pointer-events-none animate-pulse-slow" />
       <div className="absolute bottom-1/4 -right-32 w-[450px] h-[450px] bg-amber-500/[0.03] rounded-full blur-[100px] pointer-events-none animate-pulse-slow" />

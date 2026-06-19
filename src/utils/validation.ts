@@ -56,18 +56,11 @@ export const centerSchema = z
   .min(1, "Please select a training center near you");
 
 /**
- * Validates custom CAPTCHA answer.
+ * Validates Cloudflare Turnstile token.
  */
-export const captchaAnswerSchema = z
+export const captchaTokenSchema = z
   .string()
-  .min(1, "Verification is required");
-
-/**
- * Validates custom CAPTCHA signature.
- */
-export const captchaSignatureSchema = z
-  .string()
-  .min(1, "Missing security signature. Please refresh page.");
+  .min(1, "Please complete the security check to prove you are not a bot");
 
 /**
  * Reusable base schema for frontend and backend validation.
@@ -78,8 +71,7 @@ export const contactFormSchema = z.object({
   email: emailSchema,
   center: centerSchema,
   agree: z.boolean().refine((val) => val === true, "You must agree to the DIDM Terms of Use and Privacy Policy"),
-  captchaAnswer: captchaAnswerSchema,
-  captchaSignature: captchaSignatureSchema,
+  captchaToken: captchaTokenSchema,
 });
 
 export type ContactFormValues = z.infer<typeof contactFormSchema>;

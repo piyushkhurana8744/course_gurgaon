@@ -95,7 +95,7 @@ export function MainPageContent({ showPricing }: MainPageContentProps) {
   // Custom CAPTCHA references and state
   const demoRecaptchaRef = React.useRef<CustomCaptchaRef>(null);
   const brochureRecaptchaRef = React.useRef<CustomCaptchaRef>(null);
-  const [brochureToken, setBrochureToken] = React.useState<{ answer: string; signature: string } | null>(null);
+  const [brochureToken, setBrochureToken] = React.useState<string | null>(null);
 
   const [demoResetToggle, setDemoResetToggle] = React.useState(0);
   const [brochureResetToggle, setBrochureResetToggle] = React.useState(0);
@@ -127,8 +127,7 @@ export function MainPageContent({ showPricing }: MainPageContentProps) {
       phone: "",
       center: "Gurgaon",
       agree: false,
-      captchaAnswer: "",
-      captchaSignature: "",
+      captchaToken: "",
     },
   });
 
@@ -155,8 +154,7 @@ export function MainPageContent({ showPricing }: MainPageContentProps) {
           email: data.email,
           phone: data.phone,
           center: data.center,
-          captchaAnswer: data.captchaAnswer,
-          captchaSignature: data.captchaSignature,
+          captchaToken: data.captchaToken,
           formType: "DIDM Gurgaon Adword Form 2",
         }),
       });
@@ -174,8 +172,7 @@ export function MainPageContent({ showPricing }: MainPageContentProps) {
         phone: "",
         center: "Gurgaon",
         agree: false,
-        captchaAnswer: "",
-        captchaSignature: "",
+        captchaToken: "",
       });
       setDemoResetToggle(prev => prev + 1);
       router.push("/thank-you");
@@ -233,7 +230,7 @@ export function MainPageContent({ showPricing }: MainPageContentProps) {
     }
 
     if (!brochureToken) {
-      toast("Please solve the math challenge to prove you are human.", "error");
+      toast("Please complete the security check to prove you are not a bot.", "error");
       return;
     }
 
@@ -248,8 +245,7 @@ export function MainPageContent({ showPricing }: MainPageContentProps) {
           email: sanitizedEmail,
           phone: sanitizedPhone,
           center: sanitizedCenter,
-          captchaAnswer: brochureToken.answer,
-          captchaSignature: brochureToken.signature,
+          captchaToken: brochureToken,
           formType: "Brochure Download Form",
         }),
       });
@@ -479,15 +475,13 @@ export function MainPageContent({ showPricing }: MainPageContentProps) {
             {errors.agree && <span className="text-xs text-red-500 font-semibold">{errors.agree.message}</span>}
           </div>
 
-          {/* Spam Protection - Custom math CAPTCHA */}
+          {/* Spam Protection - Cloudflare Turnstile */}
           <CustomCaptcha
             ref={demoRecaptchaRef}
             id="modal-demo-captcha"
-            size="sm"
-            error={errors.captchaAnswer?.message || errors.captchaSignature?.message}
-            onChange={(val) => {
-              setValue("captchaAnswer", val?.answer || "", { shouldValidate: true });
-              setValue("captchaSignature", val?.signature || "", { shouldValidate: true });
+            error={errors.captchaToken?.message}
+            onChange={(token) => {
+              setValue("captchaToken", token || "", { shouldValidate: true });
             }}
           />
 
@@ -624,12 +618,11 @@ export function MainPageContent({ showPricing }: MainPageContentProps) {
             </label>
           </div>
 
-          {/* Spam Protection - Custom math CAPTCHA */}
+          {/* Spam Protection - Cloudflare Turnstile */}
           <CustomCaptcha
             ref={brochureRecaptchaRef}
             id="modal-brochure-captcha"
-            size="sm"
-            onChange={(val) => setBrochureToken(val)}
+            onChange={(token) => setBrochureToken(token)}
           />
 
           <Button variant="primary" size="lg" type="submit" disabled={isSubmitting} className="w-full mt-4 cursor-pointer font-bold">

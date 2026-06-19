@@ -95,8 +95,7 @@ export const Hero = () => {
       phone: "",
       center: "Gurgaon",
       agree: false,
-      captchaAnswer: "",
-      captchaSignature: "",
+      captchaToken: "",
     },
   });
 
@@ -108,8 +107,7 @@ export const Hero = () => {
       phone: "",
       center: "Gurgaon",
       agree: false,
-      captchaAnswer: "",
-      captchaSignature: "",
+      captchaToken: "",
     },
   });
 
@@ -127,8 +125,7 @@ export const Hero = () => {
           email: data.email,
           phone: data.phone,
           center: data.center,
-          captchaAnswer: data.captchaAnswer,
-          captchaSignature: data.captchaSignature,
+          captchaToken: data.captchaToken,
           formType: "DIDM Gurgaon Adword Form 1",
         }),
       });
@@ -145,8 +142,7 @@ export const Hero = () => {
         phone: "",
         center: "Gurgaon",
         agree: false,
-        captchaAnswer: "",
-        captchaSignature: "",
+        captchaToken: "",
       });
       triggerReset();
       router.push("/thank-you");
@@ -178,9 +174,9 @@ export const Hero = () => {
     } = formInstance;
 
     return (
-      <div className="rounded-xl overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.25)] border border-white/20 bg-white/95 backdrop-blur-md">
+      <div className="rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.25)] border border-white/20 bg-white/95 backdrop-blur-md">
         {/* Modern Branded Red Header */}
-        <div className="bg-gradient-to-r from-brand-red to-red-600 px-3.5 py-2 text-white">
+        <div className="bg-gradient-to-r from-brand-red to-red-600 px-3.5 py-2 text-white rounded-t-xl">
           <div className="flex items-center justify-between mb-0.5">
             <span className="text-[8px] bg-white/20 backdrop-blur-sm text-white px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider">
               Free Demo Class
@@ -312,16 +308,14 @@ export const Hero = () => {
               {errors.agree && <p className="text-[9px] text-red-500 font-semibold pl-1 leading-tight">{errors.agree.message}</p>}
             </div>
 
-            {/* Spam Protection - Custom math CAPTCHA */}
-            <div className="bg-zinc-50 border border-zinc-200/50 rounded-lg p-1.5">
+            {/* Spam Protection - Cloudflare Turnstile (scaled down for compact banner form) */}
+            <div className="origin-left" style={{ transform: "scale(0.85)", marginBottom: "-10px" }}>
               <CustomCaptcha
                 ref={recaptchaRef}
                 id={captchaId}
-                size="sm"
-                error={errors.captchaAnswer?.message || errors.captchaSignature?.message}
-                onChange={(val) => {
-                  setValue("captchaAnswer", val?.answer || "", { shouldValidate: true });
-                  setValue("captchaSignature", val?.signature || "", { shouldValidate: true });
+                error={errors.captchaToken?.message}
+                onChange={(token) => {
+                  setValue("captchaToken", token || "", { shouldValidate: true });
                 }}
               />
             </div>

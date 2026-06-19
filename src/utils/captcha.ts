@@ -1,51 +1,44 @@
-import crypto from "crypto";
-
-const CAPTCHA_SECRET = process.env.CAPTCHA_SECRET || "default_gurgaon_course_didm_captcha_secret_key_9876";
-
 /**
- * Generates a signed cryptographic signature for a CAPTCHA answer and timestamp.
- * Format: {hmac_hash}.{timestamp}
+ * Verifies a Cloudflare Turnstile token on the server using the Siteverify API.
+ * Ref: https://developers.cloudflare.com/turnstile/get-started/server-side-validation/
  */
-export function generateCaptchaSignature(answer: string, timestamp: number): string {
-  const data = `${timestamp}|${answer}`;
-  const hmac = crypto.createHmac("sha256", CAPTCHA_SECRET).update(data).digest("hex");
-  return `${hmac}.${timestamp}`;
-}
-
-/**
- * Cryptographically verifies a user's CAPTCHA answer against the signature.
- * Enforces a 10-minute expiration window to prevent replay attacks.
- */
-export function verifyCaptchaSignature(userAnswer: string, signatureWithTimestamp: string): boolean {
-  if (!userAnswer || !signatureWithTimestamp) {
+export async function verifyTurnstileToken(token: string, ip?: string): Promise<boolean> {
+  if (!token) {
     return false;
   }
 
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) {
+    console.warn("Cloudflare Turnstile secret key (TURNSTILE_SECRET_KEY) is not configured.");
+  }
+
   try {
-    const [signature, timestampStr] = signatureWithTimestamp.split(".");
-    if (!signature || !timestampStr) {
+    const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        secret: secret || "",
+        response: token,
+        remoteip: ip || "",
+      }),
+    });
+
+    if (!response.ok) {
+      console.error(`Turnstile verification API request failed with status: ${response.status}`);
       return false;
     }
 
-    const timestamp = parseInt(timestampStr, 10);
-    if (isNaN(timestamp)) {
+    const data = await response.json();
+    if (!data.success) {
+      console.warn("Turnstile validation failed:", data["error-codes"]);
       return false;
     }
 
-    // Enforce 10-minute maximum age
-    const maxAge = 10 * 60 * 1000;
-    if (Date.now() - timestamp > maxAge) {
-      return false;
-    }
-
-    // Recalculate signature
-    const cleanAnswer = userAnswer.trim();
-    const data = `${timestamp}|${cleanAnswer}`;
-    const expectedSignature = crypto.createHmac("sha256", CAPTCHA_SECRET).update(data).digest("hex");
-
-    return signature === expectedSignature;
+    return true;
   } catch (error) {
-    console.error("Custom CAPTCHA verification error:", error);
+    console.error("Error occurred while verifying Cloudflare Turnstile token:", error);
     return false;
   }
 }

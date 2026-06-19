@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { contactFormSchema, sanitizeInput } from "@/utils/validation";
-import { verifyCaptchaSignature } from "@/utils/captcha";
+import { verifyTurnstileToken } from "@/utils/captcha";
 
 export async function POST(request: Request) {
   try {
@@ -13,8 +13,7 @@ export async function POST(request: Request) {
       email: body.email,
       phone: body.phone,
       center: body.center,
-      captchaAnswer: body.captchaAnswer,
-      captchaSignature: body.captchaSignature,
+      captchaToken: body.captchaToken,
     });
 
     if (!validationResult.success) {
@@ -27,22 +26,24 @@ export async function POST(request: Request) {
             email: formattedErrors.email?._errors[0],
             phone: formattedErrors.phone?._errors[0],
             center: formattedErrors.center?._errors[0],
-            captchaAnswer: formattedErrors.captchaAnswer?._errors[0],
-            captchaSignature: formattedErrors.captchaSignature?._errors[0],
+            captchaToken: formattedErrors.captchaToken?._errors[0],
           },
         },
         { status: 400 }
       );
     }
 
-    const { name, email, phone, center, captchaAnswer, captchaSignature } = validationResult.data;
+    const { name, email, phone, center, captchaToken } = validationResult.data;
     const formType = body.formType || "Inquiry Form";
 
-    // Custom CAPTCHA verification against signature
-    const isCaptchaValid = verifyCaptchaSignature(captchaAnswer, captchaSignature);
+    // Retrieve client IP from request headers for Cloudflare verification
+    const ip = request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip") || undefined;
+
+    // Verify Turnstile token against Cloudflare Siteverify API
+    const isCaptchaValid = await verifyTurnstileToken(captchaToken, ip);
     if (!isCaptchaValid) {
       return NextResponse.json(
-        { error: "Spam check failed: Incorrect or expired CAPTCHA solution" },
+        { error: "Security verification failed: Invalid, expired, or abused CAPTCHA token" },
         { status: 400 }
       );
     }

@@ -41,8 +41,7 @@ export const VideoCounselling = () => {
       email: "",
       center: "Gurgaon",
       agree: false,
-      captchaAnswer: "",
-      captchaSignature: "",
+      captchaToken: "",
     },
   });
 
@@ -58,8 +57,7 @@ export const VideoCounselling = () => {
           email: data.email,
           phone: data.phone,
           center: data.center,
-          captchaAnswer: data.captchaAnswer,
-          captchaSignature: data.captchaSignature,
+          captchaToken: data.captchaToken,
           formType: "Free Counselling Request Form",
         }),
       });
@@ -76,8 +74,7 @@ export const VideoCounselling = () => {
         email: "",
         center: "Gurgaon",
         agree: false,
-        captchaAnswer: "",
-        captchaSignature: "",
+        captchaToken: "",
       });
       setRecaptchaResetToggle(prev => prev + 1);
       router.push("/thank-you");
@@ -294,15 +291,13 @@ export const VideoCounselling = () => {
                   {errors.agree && <span className="text-xs text-amber-300 font-bold">{errors.agree.message}</span>}
                 </div>
 
-                {/* Spam Protection - Custom math CAPTCHA */}
+                {/* Spam Protection - Cloudflare Turnstile */}
                 <CustomCaptcha
                   ref={recaptchaRef}
                   id="counselling-captcha"
-                  size="sm"
-                  error={errors.captchaAnswer?.message || errors.captchaSignature?.message}
-                  onChange={(val) => {
-                    setValue("captchaAnswer", val?.answer || "", { shouldValidate: true });
-                    setValue("captchaSignature", val?.signature || "", { shouldValidate: true });
+                  error={errors.captchaToken?.message}
+                  onChange={(token) => {
+                    setValue("captchaToken", token || "", { shouldValidate: true });
                   }}
                 />
 

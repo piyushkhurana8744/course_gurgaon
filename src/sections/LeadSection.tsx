@@ -45,8 +45,7 @@ export const LeadSection = ({ onOpenVideo }: LeadSectionProps) => {
       phone: "",
       center: "Gurgaon",
       agree: false,
-      captchaAnswer: "",
-      captchaSignature: "",
+      captchaToken: "",
     },
   });
 
@@ -62,8 +61,7 @@ export const LeadSection = ({ onOpenVideo }: LeadSectionProps) => {
           email: data.email,
           phone: data.phone,
           center: data.center,
-          captchaAnswer: data.captchaAnswer,
-          captchaSignature: data.captchaSignature,
+          captchaToken: data.captchaToken,
           formType: "Lead Section Form",
         }),
       });
@@ -83,8 +81,7 @@ export const LeadSection = ({ onOpenVideo }: LeadSectionProps) => {
         phone: "",
         center: "Gurgaon",
         agree: false,
-        captchaAnswer: "",
-        captchaSignature: "",
+        captchaToken: "",
       });
       setRecaptchaResetToggle(prev => prev + 1);
       router.push("/thank-you");
@@ -324,17 +321,15 @@ export const LeadSection = ({ onOpenVideo }: LeadSectionProps) => {
                    {errors.agree && <span className="text-xs text-red-500 font-semibold">{errors.agree.message}</span>}
                  </div>
 
-                 {/* Spam Protection - Custom math CAPTCHA */}
-                 <CustomCaptcha
-                   ref={recaptchaRef}
-                   id="lead-section-captcha"
-                   size="sm"
-                   error={errors.captchaAnswer?.message || errors.captchaSignature?.message}
-                   onChange={(val) => {
-                     setValue("captchaAnswer", val?.answer || "", { shouldValidate: true });
-                     setValue("captchaSignature", val?.signature || "", { shouldValidate: true });
-                   }}
-                 />
+                  {/* Spam Protection - Cloudflare Turnstile */}
+                  <CustomCaptcha
+                    ref={recaptchaRef}
+                    id="lead-section-captcha"
+                    error={errors.captchaToken?.message}
+                    onChange={(token) => {
+                      setValue("captchaToken", token || "", { shouldValidate: true });
+                    }}
+                  />
 
                 {/* Privacy Guarantee */}
                 <div className="flex items-center gap-2 py-1 text-left">
