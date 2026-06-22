@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Digital Marketing Course in Gurgaon | 100% Placement Assistance | DIDM",
-  description: "Learn SEO, Google Ads, Social Media Marketing, AI Tools, and more at DIDM. Get practical training, industry certifications, and career-focused placement support",
-  metadataBase: new URL("https://join.didm.co.in"),
+  title: "Best Digital Marketing Institute in Gurugram | DIDM",
+  description: "Learn SEO, Google Ads, Social Media, AI tools, and more at DIDM Gurugram. Practical training with industry experts and placement support. Enroll today.",
+  metadataBase: new URL("https://gurugram.didm.co.in"),
   icons: {
     icon: "/didmfavicon.png",
   },
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Digital Marketing Course in Gurgaon | 100% Placement Assistance | DIDM",
-    description: "Learn SEO, Google Ads, Social Media Marketing, AI Tools, and more at DIDM. Get practical training, industry certifications, and career-focused placement support",
-    url: "https://join.didm.co.in/",
+    title: "Best Digital Marketing Institute in Gurugram | DIDM",
+    description: "Learn SEO, Google Ads, Social Media, AI tools, and more at DIDM Gurugram. Practical training with industry experts and placement support. Enroll today.",
+    url: "https://gurugram.didm.co.in/",
     siteName: "DIDM - Delhi Institute of Digital Marketing",
     images: [
       {
@@ -42,8 +42,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digital Marketing Course in Gurgaon | 100% Placement Assistance | DIDM",
-    description: "Learn SEO, Google Ads, Social Media Marketing, AI Tools, and more at DIDM. Get practical training, industry certifications, and career-focused placement support",
+    title: "Best Digital Marketing Institute in Gurugram | DIDM",
+    description: "Learn SEO, Google Ads, Social Media, AI tools, and more at DIDM Gurugram. Practical training with industry experts and placement support. Enroll today.",
     images: ["https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800"],
   },
   robots: {
@@ -157,8 +157,8 @@ export default function RootLayout({
         */}
         
         {/* Google Schema/Search Console itemprop metadata */}
-        <meta itemProp="title" content="Digital Marketing Course in Gurgaon | 100% Placement Assistance | DIDM" />
-        <meta itemProp="description" content="Learn SEO, Google Ads, Social Media Marketing, AI Tools, and more at DIDM. Get practical training, industry certifications, and career-focused placement support" />
+        <meta itemProp="title" content="Best Digital Marketing Institute in Gurugram | DIDM" />
+        <meta itemProp="description" content="Learn SEO, Google Ads, Social Media, AI tools, and more at DIDM Gurugram. Practical training with industry experts and placement support. Enroll today." />
 
         {/* JSON-LD Schema Injections */}
         <script
